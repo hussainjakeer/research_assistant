@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Research Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/static/tailwind.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+  <div class="max-w-2xl mx-auto space-y-4">
+    <h1 class="text-3xl font-bold text-center">AI Research Paper Assistant</h1>
+
+    <input id="sessionId" type="text" hidden />
+
+    <form id="uploadForm" class="bg-white p-4 rounded shadow space-y-2">
+      <label class="block font-medium">Upload PDF</label>
+      <input type="file" id="pdfFile" name="file" required class="w-full border p-2" />
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
+    </form>
+
+    <form id="askForm" class="bg-white p-4 rounded shadow space-y-2">
+      <label class="block font-medium">Ask a Question</label>
+      <input type="text" id="question" placeholder="Type your question..." class="w-full border p-2" />
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Ask</button>
+    </form>
+
+    <button id="summarizeBtn" class="bg-purple-600 text-white px-4 py-2 rounded">Summarize Paper</button>
+
+    <div class="bg-white p-4 rounded shadow mt-4">
+      <h2 class="text-xl font-semibold">Response</h2>
+      <pre id="response" class="text-sm whitespace-pre-wrap"></pre>
+    </div>
+  </div>
+
+  <script>
+    const sessionId = crypto.randomUUID();
+    document.getElementById("sessionId").value = sessionId;
+
+    const uploadForm = document.getElementById("uploadForm");
+    uploadForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const file = document.getElementById("pdfFile").files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("session_id", sessionId);
+
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      document.getElementById("response").innerText = JSON.stringify(data, null, 2);
+    };
+
+    const askForm = document.getElementById("askForm");
+    askForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const question = document.getElementById("question").value;
+      const formData = new FormData();
+      formData.append("session_id", sessionId);
+      formData.append("question", question);
+
+      const res = await fetch("/api/ask", { method: "POST", body: formData });
+      const data = await res.json();
+      document.getElementById("response").innerText = JSON.stringify(data, null, 2);
+    };
+
+    document.getElementById("summarizeBtn").onclick = async () => {
+      const formData = new FormData();
+      formData.append("session_id", sessionId);
+
+      const res = await fetch("/api/summarize", { method: "POST", body: formData });
+      const data = await res.json();
+      document.getElementById("response").innerText = JSON.stringify(data, null, 2);
+    };
+  </script>
+</body>
+</html>
