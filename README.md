@@ -32,21 +32,21 @@ Built with:
 📦 Folder Structure
 
 research-assistant/
-├── app/ → Flask app code
-│ ├── init.py → App factory
-│ ├── config.py → Environment config
-│ ├── routes/ → Blueprint APIs (upload, ask, summarize)
-│ ├── utils.py → Core LangChain/FAISS logic
-│ └── vectorstores/ → Persistent FAISS sessions
-├── templates/ → HTML frontend
-│ └── index.html
-├── static/ → TailwindCSS (or CDN)
-├── uploads/ → Temporary file storage
-├── .env → OpenAI keys + port
-├── run.py → Flask entry point
-├── Dockerfile → Docker setup
-├── requirements.txt
-└── README.md → You're here!
+    ├── app/ → Flask app code
+    │ ├── init.py → App factory
+    │ ├── config.py → Environment config
+    │ ├── routes/ → Blueprint APIs (upload, ask, summarize)
+    │ ├── utils.py → Core LangChain/FAISS logic
+    │ └── vectorstores/ → Persistent FAISS sessions
+    ├── templates/ → HTML frontend
+    │ └── index.html
+    ├── static/ → TailwindCSS (or CDN)
+    ├── uploads/ → Temporary file storage
+    ├── .env → OpenAI keys + port
+    ├── run.py → Flask entry point
+    ├── Dockerfile → Docker setup
+    ├── requirements.txt
+    └── README.md → You're here!
 
 —-------------------------------------------------
 
