@@ -27,7 +27,7 @@ Built with:
 ✅ Modular Flask backend with Blueprints
 ✅ Docker-ready for containerized deployment
 
-—-------------------------------------------------
+—
 
 📦 Folder Structure
 
